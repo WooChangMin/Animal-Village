@@ -11,11 +11,16 @@ public class PlayerControll : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float runSpeed;
     [SerializeField] float rotateSpeed;
+    [SerializeField] Transform dropPoint;
+    [SerializeField]private LayerMask itemMask;
+
     private float curSpeed;
 
     //인벤토리용
     public GameObject inventory;
     private bool activeInventory = false;
+
+    private ParticleSystem runEffect;
 
     //달리고있는지 유무확인
     private bool iswalk;
@@ -31,12 +36,15 @@ public class PlayerControll : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-       
+        runEffect = GetComponentInChildren<ParticleSystem>();
+
     }
 
     private void Update()
     {
-        Move();
+        if (!isPick)
+            Move();
+            
     }
 
     private void FixedUpdate()
@@ -44,7 +52,16 @@ public class PlayerControll : MonoBehaviour
         // 떨어지는 움직임의 경우 프레임에 영향을 안받게 구현
         Fall();
     }
-    
+
+    private void OnEnable()
+    {
+        StartCoroutine(ItemPickUp());
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
     private void OnTriggerStay(Collider other)
     {
         
@@ -60,9 +77,11 @@ public class PlayerControll : MonoBehaviour
     //움직임 구현 (뛸때 걸을떄 속도조절)
     private void Move()
     {
-        if(moveDir.magnitude == 0)
+        runEffect.Play();
+        if (moveDir.magnitude == 0)
         {
             curSpeed = Mathf.Lerp(curSpeed, 0f, 0.5f);
+            runEffect.Stop();
         }
         else if (isRun == true)
         {
@@ -74,6 +93,8 @@ public class PlayerControll : MonoBehaviour
             curSpeed = Mathf.Lerp(curSpeed, moveSpeed, 0.5f);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-moveDir), Time.deltaTime * rotateSpeed);
         }
+        
+        controller.Move(-moveDir* curSpeed * Time.deltaTime);
         animator.SetFloat("Speed", curSpeed);
     }
 
@@ -100,24 +121,60 @@ public class PlayerControll : MonoBehaviour
 
     }
 
-    private void ItemPickUp()
+    //Coroutine ItemPickUpRoutine;
+    private IEnumerator ItemPickUp()
     {
-        animator.SetTrigger("IsPickUp");
+        while(true)
+        {
+            if (isPick)
+            {
+                Collider[] colliders = Physics.OverlapSphere(dropPoint.position, 0.5f, itemMask);
+
+                if (colliders.Length <= 0)
+                {
+                    yield return null;
+                    isPick = false;
+                }
+                else
+                {
+                    animator.SetTrigger("IsPickUp");
+                    Destroy(colliders[0].gameObject);
+
+                    yield return new WaitForSeconds(0.9f); // 애니메이션 구현 시간
+                    isPick = false;
+
+                }
+            }
+            yield return null;
+        }
     }
 
     private void OnItemPickUp(InputValue value)
     {
+        isPick = true;
         ItemPickUp();
     }
+
     private void Inventory()
     {
         activeInventory = !activeInventory;
-        inventory.SetActive(activeInventory);  
+        inventory.SetActive(activeInventory);
     }
 
     private void OnInventory(InputValue value)
     {
         Inventory();
         //inventory
+    }
+
+    private void Particle()
+    {
+        Component particle = this.GetComponentInChildren<ParticleSystem>();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(dropPoint.position, 0.5f);
     }
 }
