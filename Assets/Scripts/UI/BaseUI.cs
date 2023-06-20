@@ -43,4 +43,9 @@ public class BaseUI : MonoBehaviour
         }
     }
 
+    public virtual void CloseUI()
+    {
+
+    }
+
 }

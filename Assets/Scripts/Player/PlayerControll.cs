@@ -158,13 +158,19 @@ public class PlayerControll : MonoBehaviour
     private void Inventory()
     {
         activeInventory = !activeInventory;
-        inventory.SetActive(activeInventory);
+        if (activeInventory)
+        {
+            GameManager.UI.OpenInventoryUI();
+        }
+        else
+        {
+            GameManager.UI.CloseInventoryUI();
+        }
     }
 
     private void OnInventory(InputValue value)
     {
         Inventory();
-        //inventory
     }
 
     private void Particle()

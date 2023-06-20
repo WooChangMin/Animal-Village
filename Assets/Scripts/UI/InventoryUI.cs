@@ -5,17 +5,25 @@ using UnityEngine.InputSystem;
 
 public class InventoryUI : BaseUI
 {
-    public GameObject inventoryPanel;
-    bool activeInventory = false;
 
     private void Start()
     {
-        inventoryPanel.SetActive(activeInventory);
     }
 
-    private void OnInventory(InputValue value)
+    private void AddItem()
     {
-        activeInventory = !activeInventory;
-        inventoryPanel.SetActive(activeInventory);
+
     }
+
+    private void SwapItem()
+    {
+
+    }
+
+    private void DropItem()
+    {
+
+    }
+
+
 }
