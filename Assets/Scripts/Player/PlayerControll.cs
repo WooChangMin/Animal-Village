@@ -121,7 +121,7 @@ public class PlayerControll : MonoBehaviour
 
     }
 
-    //Coroutine ItemPickUpRoutine;
+    //Coroutine ItemPickUpRoutine; 아이템 픽업 코루틴
     private IEnumerator ItemPickUp()
     {
         while(true)
@@ -149,12 +149,14 @@ public class PlayerControll : MonoBehaviour
         }
     }
 
+    //아이템 픽업 입력구현
     private void OnItemPickUp(InputValue value)
     {
         isPick = true;
         ItemPickUp();
     }
 
+    //인벤토리 함수로 activeInventory의 bool값을 바꾸면서 유아이매니저에서 구현
     private void Inventory()
     {
         activeInventory = !activeInventory;
@@ -168,19 +170,22 @@ public class PlayerControll : MonoBehaviour
         }
     }
 
+    //인벤토리 입력들어왔을때 함수실행
     private void OnInventory(InputValue value)
     {
         Inventory();
     }
 
+    //발 밑 먼지날리는 파티클
     private void Particle()
     {
         Component particle = this.GetComponentInChildren<ParticleSystem>();
     }
 
+    /*//줍는 범위 표현
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(dropPoint.position, 0.5f);
-    }
+    }*/
 }
