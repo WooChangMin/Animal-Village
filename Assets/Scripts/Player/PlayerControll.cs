@@ -23,8 +23,9 @@ public class PlayerControll : MonoBehaviour
     private ParticleSystem runEffect;
 
     //달리고있는지 유무확인
-    private bool iswalk;
     private bool isRun;
+
+    //줍는 중인경우! 다른행동정지
     private bool isPick = false;
 
     private Animator animator;
@@ -70,7 +71,6 @@ public class PlayerControll : MonoBehaviour
     //움직임시 방향을 입력받음 
     private void OnMove(InputValue value)
     {
-        iswalk = true;
         moveDir = new Vector3 (value.Get<Vector2>().x, 0 , value.Get<Vector2>().y);
     }
 
