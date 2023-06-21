@@ -39,20 +39,24 @@ public class GameManager : MonoBehaviour
     }
     private void InitManagers()
     {
-        GameObject poolObj = new GameObject();
-        poolObj.name = "PoolManager";
-        poolObj.transform.parent = transform;
-        poolManager = poolObj.AddComponent<PoolManager>();
-
         GameObject resourceObj = new GameObject();
         resourceObj.name = "ResourceManager";
         resourceObj.transform.parent = transform;
         resourceManager = resourceObj.AddComponent<ResourceManager>();
+
+        GameObject poolObj = new GameObject();
+        poolObj.name = "PoolManager";
+        poolObj.transform.parent = transform;
+        poolManager = poolObj.AddComponent<PoolManager>();
 
         GameObject uiObj = new GameObject();
         uiObj.name = "UIManager";
         uiObj.transform.parent = transform;
         uiManager = uiObj.AddComponent<UIManager>();
 
+        GameObject sceneObj = new GameObject();
+        sceneObj.name = "SceneManager";
+        sceneObj.transform.parent = transform;
+        sceneManager = sceneObj.AddComponent<SceneManager>();
     }
 }
