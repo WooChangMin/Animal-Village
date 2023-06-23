@@ -6,12 +6,11 @@ using UnityEngine;
 [CreateAssetMenu (fileName = "EquipmentItemData", menuName = "Data/ItemData/EquiptmentItemData")]
 public class EquiptItemData : ItemData
 {
+    private void Awake()
+    {
+        type = ItemType.Equipment;
+    }
+    public int Durability;
 
-    /*public string Name { get { return this.name; } }
-    public string Info { get { return this.description; } }
-
-    public int Price { get { return this.salePrice; } }     
-*/  
-    [SerializeField] public int Durability;
-
+    public int damage;
 }

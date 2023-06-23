@@ -12,3 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902620363187705469b7849b884a5899, type: 3}
   m_Name: EquipmentItemData
   m_EditorClassIdentifier: 
+  prefab: {fileID: 0}
+  name: 
+  type: 0
+  salePrice: 0
+  description: 
+  Durability: 0
+  damage: 0
