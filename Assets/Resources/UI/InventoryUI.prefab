@@ -587,6 +587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41cd5ec797b16304f94896db39ca3747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Inventory: {fileID: 11400000, guid: c35d57a39ac3d4845aa51bd8c00eb41d, type: 2}
 --- !u!1 &1328939731487817330
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,7 +829,7 @@ GameObject:
   - component: {fileID: 8976629640630189981}
   - component: {fileID: 6168924981089188418}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1026,7 +1027,7 @@ GameObject:
   - component: {fileID: 1901802670784294729}
   - component: {fileID: 2988672204748131102}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1148,7 +1149,7 @@ GameObject:
   - component: {fileID: 4314268042268156938}
   - component: {fileID: 1507074969216827223}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1783,7 +1784,7 @@ GameObject:
   - component: {fileID: 7529884569057852403}
   - component: {fileID: 2654325980770438595}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1905,7 +1906,7 @@ GameObject:
   - component: {fileID: 9091547084837929598}
   - component: {fileID: 8705360051139925634}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2499,7 +2500,7 @@ GameObject:
   - component: {fileID: 7392946129089123429}
   - component: {fileID: 3038019096779972304}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2773,7 +2774,7 @@ GameObject:
   - component: {fileID: 8710941367788094966}
   - component: {fileID: 4105179849602293955}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3224,8 +3225,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Inventory
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
-  m_sharedMaterial: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 440a8ea80b101294ca101d9116c76e8a, type: 2}
+  m_sharedMaterial: {fileID: 5376687512974609399, guid: 440a8ea80b101294ca101d9116c76e8a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3249,8 +3250,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3426,7 +3427,7 @@ GameObject:
   - component: {fileID: 5294642021691578591}
   - component: {fileID: 3159210995473727334}
   m_Layer: 5
-  m_Name: Slot
+  m_Name: Slot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.InputSystem;
 
 public class PlayerControll : MonoBehaviour
@@ -11,13 +9,14 @@ public class PlayerControll : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float runSpeed;
     [SerializeField] float rotateSpeed;
-    [SerializeField] Transform dropPoint;
-    [SerializeField]private LayerMask itemMask;
 
     private float curSpeed;
+    private int userGold;
 
     //인벤토리용
-    public GameObject inventory;
+    [SerializeField] Transform dropPoint;
+    [SerializeField] LayerMask itemMask;
+    public InventoryObject inventory;
     private bool activeInventory = false;
 
     private ParticleSystem runEffect;
@@ -134,19 +133,30 @@ public class PlayerControll : MonoBehaviour
                 {
                     yield return null;
                     isPick = false;
+
+                    Debug.Log("없어!");
                 }
                 else
                 {
+
+                    Debug.Log("있어");
+                    Item var = colliders[0].gameObject.GetComponent <Item>();   
                     animator.SetTrigger("IsPickUp");
                     Destroy(colliders[0].gameObject);
+                    inventory.AddItem(var.item, 1);
+                    GameManager.UI
 
                     yield return new WaitForSeconds(0.9f); // 애니메이션 구현 시간
                     isPick = false;
-
                 }
             }
             yield return null;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        inventory.Container.Clear();
     }
 
     //아이템 픽업 입력구현
