@@ -126,25 +126,23 @@ public class PlayerControll : MonoBehaviour
         while(true)
         {
             if (isPick)
-            {
-                Collider[] colliders = Physics.OverlapSphere(dropPoint.position, 0.5f, itemMask);
+            { 
+                //발위치에서 원형의 오버랩스피어사용                    
+                Collider[] colliders = Physics.OverlapSphere(dropPoint.position, 0.7f, itemMask);
 
+                //충돌체가 없을때?
                 if (colliders.Length <= 0)
                 {
                     yield return null;
                     isPick = false;
-
-                    Debug.Log("없어!");
                 }
+                //충돌체가 있을때
                 else
                 {
-
-                    Debug.Log("있어");
                     Item var = colliders[0].gameObject.GetComponent <Item>();   
                     animator.SetTrigger("IsPickUp");
                     Destroy(colliders[0].gameObject);
-                    inventory.AddItem(var.item, 1);
-                    GameManager.UI
+                    inventory.AddItem(var.item, 1);  //아이템 추가
 
                     yield return new WaitForSeconds(0.9f); // 애니메이션 구현 시간
                     isPick = false;
