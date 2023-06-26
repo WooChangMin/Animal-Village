@@ -12,37 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6617875dd30852040a6b61622c39ec4b, type: 3}
   m_Name: Inventory
   m_EditorClassIdentifier: 
-  Containers:
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
-  - item: {fileID: 0}
-    amount: 0
+  Container: []
   InventoryUI: {fileID: 1004823956919059771, guid: f85fb67c50b854b499e5cfc0efa19f95, type: 3}

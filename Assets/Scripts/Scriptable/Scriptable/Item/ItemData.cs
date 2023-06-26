@@ -18,6 +18,8 @@ public class ItemData : ScriptableObject
     public Sprite itemImage;
     public ItemType type;
     public int salePrice;
+    public int overlapCount;
+
     [TextArea(10,10)]
     public string description;
 
