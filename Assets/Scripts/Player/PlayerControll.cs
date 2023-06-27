@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,6 +25,8 @@ public class PlayerControll : MonoBehaviour
     //달리고있는지 유무확인
     private bool isRun;
 
+    //인벤토리가 열려있을때 다른행동 정지
+
     //줍는 중인경우! 다른행동정지
     private bool isPick = false;
 
@@ -42,9 +45,16 @@ public class PlayerControll : MonoBehaviour
 
     private void Update()
     {
-        if (!isPick)
+        if (!isPick || !activeInventory)
             Move();
-            
+
+        if (activeInventory)
+            InventoryCursor();
+    }
+
+    private void InventoryCursor()
+    {
+
     }
 
     private void FixedUpdate()
@@ -76,25 +86,32 @@ public class PlayerControll : MonoBehaviour
     //움직임 구현 (뛸때 걸을떄 속도조절)
     private void Move()
     {
-        runEffect.Play();
-        if (moveDir.magnitude == 0)
+        if (!activeInventory & !isPick)
         {
-            curSpeed = Mathf.Lerp(curSpeed, 0f, 0.5f);
-            runEffect.Stop();
-        }
-        else if (isRun == true)
-        {
-            curSpeed = Mathf.Lerp(curSpeed, runSpeed, 0.5f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-moveDir), Time.deltaTime * rotateSpeed);
+            runEffect.Play();
+            if (moveDir.magnitude == 0)
+            {
+                curSpeed = Mathf.Lerp(curSpeed, 0f, 0.5f);
+                runEffect.Stop();
+            }
+            else if (isRun == true)
+            {
+                curSpeed = Mathf.Lerp(curSpeed, runSpeed, 0.03f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-moveDir), Time.deltaTime * rotateSpeed);
+            }
+            else
+            {
+                curSpeed = Mathf.Lerp(curSpeed, moveSpeed, 0.05f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-moveDir), Time.deltaTime * rotateSpeed);
+            }
+            
+            controller.Move(-moveDir* curSpeed * Time.deltaTime);
+            animator.SetFloat("Speed", curSpeed);
         }
         else
         {
-            curSpeed = Mathf.Lerp(curSpeed, moveSpeed, 0.5f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(-moveDir), Time.deltaTime * rotateSpeed);
+
         }
-        
-        controller.Move(-moveDir* curSpeed * Time.deltaTime);
-        animator.SetFloat("Speed", curSpeed);
     }
 
     // 중력 조절
@@ -123,9 +140,9 @@ public class PlayerControll : MonoBehaviour
     //Coroutine ItemPickUpRoutine; 아이템 픽업 코루틴
     private IEnumerator ItemPickUp()
     {
-        while(true)
+        while (true)
         {
-            if (isPick)
+            if (isPick && !activeInventory)
             { 
                 //발위치에서 원형의 오버랩스피어사용                    
                 Collider[] colliders = Physics.OverlapSphere(dropPoint.position, 0.7f, itemMask);
@@ -144,7 +161,7 @@ public class PlayerControll : MonoBehaviour
                     Destroy(colliders[0].gameObject);
                     inventory.AddItem(var.item, 1);  //아이템 추가
 
-                    yield return new WaitForSeconds(0.9f); // 애니메이션 구현 시간
+                    yield return new WaitForSeconds(1f); // 애니메이션 구현 시간
                     isPick = false;
                 }
             }
@@ -170,10 +187,12 @@ public class PlayerControll : MonoBehaviour
         activeInventory = !activeInventory;
         if (activeInventory)
         {
+            animator.SetBool("isOnInven", true);
             GameManager.UI.OpenInventoryUI();
         }
         else
         {
+            animator.SetBool("isOnInven", false);
             GameManager.UI.CloseInventoryUI();
         }
     }

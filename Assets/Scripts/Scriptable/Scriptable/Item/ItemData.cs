@@ -20,7 +20,7 @@ public class ItemData : ScriptableObject
     public int salePrice;
     public int overlapCount;
 
-    [TextArea(10,10)]
+    [TextArea(10,10)]   
     public string description;
 
     /*[SerializeField] ItemDB[] items;
