@@ -51,31 +51,42 @@ public class UIManager : MonoBehaviour
 
     public void OpenSelectUI(ItemType type, int order)
     {
+        SelectUI.gameObject.SetActive(true);
         switch (type)
         {
             case ItemType.Furniture:
-                GameObject gameObj = GameObject.Find("Furni_SelectUI");
-                gameObj.SetActive(true);
-                gameObj.GetComponent<RectTransform>().anchoredPosition = new Vector3(350 + (130 * (order % 4)), 130 - (130 * (order / 4)), 0);
+                InitPosition();
+                SelectUI.transform.GetChild(2).position = new Vector3(1400f + 130*(order%4), 650f - 130*(order/4) , 0);
                 break;
             case ItemType.Equipment:
-                GameObject gameObj1 = GameObject.Find("EquipUI");
-                gameObj1.SetActive(true);
-                gameObj1.GetComponent<RectTransform>().anchoredPosition = new Vector3(350 + (130 * (order % 4)), 130 - (130 * (order / 4)), 0);
+                InitPosition();
+                SelectUI.transform.GetChild(1).position = new Vector3(1400f + 130 * (order % 4), 650f - 130 * (order / 4), 0);
+                //GameObject gameObj1 = GameObject.Find("Equip_SelectUI");
+                //gameObj1.SetActive(true);
+                //gameObj1.GetComponent<RectTransform>().anchoredPosition = new Vector3(390 + (130 * (order % 4)), 120 - (130 * (order / 4)), 0);
                 break;
             case ItemType.Default:
-                GameObject gameObj2 = GameObject.Find("DefaultUI");
-                gameObj2.SetActive(true);
-                gameObj2.GetComponent<RectTransform>().anchoredPosition = new Vector3(350 + (130 * (order % 4)), 130 - (130 * (order / 4)), 0);
+                InitPosition();
+                SelectUI.transform.GetChild(0).position = new Vector3(1400f + 130 * (order % 4), 650f - 130 * (order / 4), 0);  
+                //GameObject gameObj2 = GameObject.Find("Default_SelectUI");
+                //gameObj2.SetActive(true);
+                //gameObj2.GetComponent<RectTransform>().anchoredPosition = new Vector3(390 + (130 * (order % 4)), 120 - (130 * (order / 4)), 0);
                 break;
         }
     }
 
     public void CloseSelectUI()
     {
-
+        SelectUI.gameObject.SetActive(false);
     }
-    
+
+    public void InitPosition()
+    {
+        SelectUI.transform.GetChild(0).position = new Vector3(2000f, 2000f, 0);
+        SelectUI.transform.GetChild(1).position = new Vector3(2000f, 2000f, 0);
+        SelectUI.transform.GetChild(2).position = new Vector3(2000f, 2000f, 0);
+    }
+
     /*public void ChangeImageSlot(Sprite _sprite, int i)
     {
         //GameObject.Find("Slot"+i).GetComponentInChildren<Image>().sprite = _sprite;
