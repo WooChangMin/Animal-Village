@@ -194,6 +194,7 @@ public class PlayerControll : MonoBehaviour
         {
             animator.SetBool("isOnInven", false);
             GameManager.UI.CloseInventoryUI();
+            GameManager.UI.CloseSelectUI();
         }
     }
 

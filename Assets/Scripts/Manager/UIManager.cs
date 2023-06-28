@@ -17,6 +17,10 @@ public class UIManager : MonoBehaviour
 
     private Canvas SelectUI;
 
+    private Vector3 SelectUiOffset = new Vector3(150,-150,0);
+
+    private Canvas DescriptUI;
+
     private void Awake()
     {
         eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
@@ -25,7 +29,7 @@ public class UIManager : MonoBehaviour
         UICanvas = GameManager.Resource.Instantiate<Canvas>("UI/UICanvas");
         UICanvas.gameObject.name = "UICanvas";
         
-        InventoryCanvas = GameManager.Resource.Instantiate<Canvas>("UI/InventoryUI");
+        InventoryCanvas = GameManager.Resource.Instantiate<Canvas>("UI/InventoryCanvas");
         InventoryCanvas.gameObject.name = "InventoryCanvas";
         InventoryCanvas.sortingOrder = 32;
         InventoryCanvas.gameObject.SetActive(false);
@@ -37,6 +41,12 @@ public class UIManager : MonoBehaviour
         SelectUI.sortingOrder = 64;
         SelectUI.gameObject.SetActive(false);
         SelectUI.transform.SetParent(UICanvas.transform);
+/*
+        DescriptUI = GameManager.Resource.Instantiate<Canvas>("UI/DescriptUI");
+        DescriptUI.gameObject.name = "DescriptUI";
+        DescriptUI.sortingOrder = 64;
+        DescriptUI.gameObject.SetActive(false);
+        DescriptUI.transform.SetParent(UICanvas.transform);*/
     }
 
     public void OpenInventoryUI()
@@ -49,42 +59,37 @@ public class UIManager : MonoBehaviour
         InventoryCanvas.gameObject.SetActive(false);
     }
 
-    public void OpenSelectUI(ItemType type, int order)
+    public void OpenSelectUI(ItemType type)
     {
-        SelectUI.gameObject.SetActive(true);
+        InitSelectUI();
+            
         switch (type)
-        {
-            case ItemType.Furniture:
-                InitPosition();
-                SelectUI.transform.GetChild(2).position = new Vector3(1400f + 130*(order%4), 650f - 130*(order/4) , 0);
+        {            
+            case ItemType.Default:
+                SelectUI.transform.GetChild(0).gameObject.SetActive(true);
                 break;
             case ItemType.Equipment:
-                InitPosition();
-                SelectUI.transform.GetChild(1).position = new Vector3(1400f + 130 * (order % 4), 650f - 130 * (order / 4), 0);
-                //GameObject gameObj1 = GameObject.Find("Equip_SelectUI");
-                //gameObj1.SetActive(true);
-                //gameObj1.GetComponent<RectTransform>().anchoredPosition = new Vector3(390 + (130 * (order % 4)), 120 - (130 * (order / 4)), 0);
+                SelectUI.transform.GetChild(1).gameObject.SetActive(true);
                 break;
-            case ItemType.Default:
-                InitPosition();
-                SelectUI.transform.GetChild(0).position = new Vector3(1400f + 130 * (order % 4), 650f - 130 * (order / 4), 0);  
-                //GameObject gameObj2 = GameObject.Find("Default_SelectUI");
-                //gameObj2.SetActive(true);
-                //gameObj2.GetComponent<RectTransform>().anchoredPosition = new Vector3(390 + (130 * (order % 4)), 120 - (130 * (order / 4)), 0);
+            case ItemType.Furniture:
+                SelectUI.transform.GetChild(2).gameObject.SetActive(true);
                 break;
         }
     }
-
     public void CloseSelectUI()
     {
         SelectUI.gameObject.SetActive(false);
     }
 
-    public void InitPosition()
+    public void OpenDiscriptUI()
     {
-        SelectUI.transform.GetChild(0).position = new Vector3(2000f, 2000f, 0);
-        SelectUI.transform.GetChild(1).position = new Vector3(2000f, 2000f, 0);
-        SelectUI.transform.GetChild(2).position = new Vector3(2000f, 2000f, 0);
+    }
+    public void InitSelectUI()
+    {
+        SelectUI.gameObject.SetActive(true);
+        SelectUI.transform.GetChild(0).gameObject.SetActive(false);
+        SelectUI.transform.GetChild(1).gameObject.SetActive(false);
+        SelectUI.transform.GetChild(2).gameObject.SetActive(false);
     }
 
     /*public void ChangeImageSlot(Sprite _sprite, int i)
