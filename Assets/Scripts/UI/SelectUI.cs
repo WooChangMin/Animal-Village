@@ -2,37 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectUI : MonoBehaviour
+public class SelectUI : BaseUI
 {
-    public void OnEnable()
-    {
-        InitPosition();
 
+    protected override void Awake()
+    {
+        base.Awake();
+        buttons["ObserveButton"].onClick.AddListener(() => { Debug.Log("°üÂûÁß"); });
+        buttons["DumpButton"].onClick.AddListener(() => { Debug.Log("¹ö·È´ÙÀâÅÛ"); });
+
+
+        buttons["EquipButton"].onClick.AddListener(() => { Debug.Log("ÀåÂøÁß"); });
+        buttons["DumpEquipButton"].onClick.AddListener(() => { Debug.Log("¹ö·È´Ùµµ±¸"); });
+
+
+        buttons["ArrangeButton"].onClick.AddListener(() => { Debug.Log("¹èÄ¡Áß"); });
+        buttons["DumpFurniButton"].onClick.AddListener(() => { Debug.Log("¹ö·È´Ù°¡±¸"); });
     }
 
-
-    public void InitPosition()
-    {
-        transform.GetChild(0).position = new Vector3(2000f, 2000f, 0);
-        transform.GetChild(1).position = new Vector3(2000f, 2000f, 0);
-        transform.GetChild(2).position = new Vector3(2000f, 2000f, 0);
-    }
-    public void UIPosition(ItemType type, int order)
-    {
-        switch (type)   
-        {
-            case ItemType.Furniture:
-                InitPosition();
-                transform.GetChild(2).position = new Vector3(1400f + 130 * (order % 4), 650f - 130 * (order / 4), 0);
-                break;
-            case ItemType.Equipment:
-                InitPosition();
-                transform.GetChild(1).position = new Vector3(1400f + 130 * (order % 4), 650f - 130 * (order / 4), 0);
-                break;
-            case ItemType.Default:
-                InitPosition();
-                transform.GetChild(0).position = new Vector3(1400f + 130 * (order % 4), 650f - 130 * (order / 4), 0);
-                break;
-        }
-    }
 }

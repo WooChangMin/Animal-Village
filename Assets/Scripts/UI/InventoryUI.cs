@@ -10,15 +10,19 @@ using UnityEngine.InputSystem;
 using static Unity.VisualScripting.Metadata;
 using TreeEditor;
 using JetBrains.Annotations;
+//using UnityEngine.UIElements;
 
 public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public InventoryObject Inventory;
     private int dataOrder;
-    private int selectUIOrder;
+    private int selectUIOrder = 0;
     private bool OnSelectUI;
-    private Vector3 cursorOffset = new Vector3 (50, -50, 0);
+    private Vector3 cursorOffset = new Vector3 (50f, -50f, 0);
+    private Vector3 SelectUIOffset = new Vector3(180f, -80f, 0);
+    private Vector2 moveDir;
 
+    int number;
 
     protected override void Awake()
     {
@@ -28,13 +32,18 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
     private void OnEnable()
     {
         dataOrder = 0;
+        number = 0;
         Inventory.OnInventoryChanged += Refresh;
+        FindObjectOfType<PlayerControll>().OnInventoryShutDown += CursorCancel;
+        //PlayerControll.OnInventoryShutDown += null;
         Refresh();
     }
 
     private void OnDisable()
     {
         Inventory.OnInventoryChanged -= Refresh;
+        FindObjectOfType<PlayerControll>().OnInventoryShutDown -= CursorCancel;
+        //PlayerControll.OnInventoryShutDown -= null;
     }
 
     //인벤토리를 열때마다 인벤토리 최적화
@@ -51,27 +60,8 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
             //아이템 수량 변경
             transform.GetChild(i).GetComponentInChildren<Text>().text = Inventory.Container[i].amount.ToString();
         }
-
-
-        /*
-        for (int i = 0; i < 16; i++)
-        {
-            Slots[i] = myChildren[(i*3)+2];
-        }
-        for (int i=0; i< Inventory.Container.Count ; i++)
-        {
-            Slots[i].GetComponentInChildren<Image>().sprite = Inventory.Container[i].item.itemImage;
-            Slots[i].Tex= Inventory.Container[i].amount;
-            
-        }
-
-        Transform[] myChildren = Inventory.GetComponentsInChildren<Transform>();
-        *//*Slot[] slots  = this.GetComponentsInChildren<Slot>();
-        for (int i = 0; i < Inventory.Container.Count; i++)
-        {
-            slots[1].text = "13234";
-        }*/
     }
+
     //선택팝업창 받았을때
     public void OnCursorSelect(InputValue value)
     {
@@ -81,21 +71,39 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
     //선택 팝업창 띄우기
     public void CursorSelect()
     {
-        OnSelectUI = true;
-        if (Inventory.Container.Count <= dataOrder)
+        if (OnSelectUI)
         {
-            return;
+            //선택팝업창에서 행동을 선택했을때?
+            GameManager.UI.SelectUI.transform.GetChild(number).GetComponentsInChildren<Button>()[selectUIOrder%2].onClick.Invoke();
         }
-        OnSelectUI = true;
-        GameManager.UI.OpenSelectUI(Inventory.Container[dataOrder].item.type);
+        else
+        {
+            if (Inventory.Container.Count <= dataOrder)
+            {
+                return;
+            }
+            OnSelectUI = true;
+            GameManager.UI.OpenSelectUI(Inventory.Container[dataOrder].item.type);
+            CursorPosition();
+        }
+    }
+
+    public void ButtonClickEvent()
+    {
+        Debug.Log("click");
+
     }
 
     //커서 움직임시 커서의 위치정보 표현
     public void CursorPosition()
     {
+        if (Inventory.Container.Count <= dataOrder)
+            number = 0;
+        else number = (int)Inventory.Container[dataOrder].item.type;
+        
         if (OnSelectUI)
         {
-            GameObject.Find("Cursor").transform.position = GameObject.Find("SelectUI").transform.GetChild(1).position;
+            GameObject.Find("Cursor").transform.position = GameManager.UI.SelectUI.transform.GetChild(number).GetChild((Mathf.Abs(selectUIOrder))%2).position + SelectUIOffset;
         }
         else
         {
@@ -110,7 +118,6 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
         }
     }
 
-
     //선택한 슬롯 강조
     public void ItemHighlight()
     {
@@ -123,22 +130,24 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
     }
 
     // esc를 누를경우 선택 팝업창 종료
-    public void OnCursorCancel(InputValue value)
+    public void CursorCancel()
     {
         OnSelectUI = false;
+        selectUIOrder = 0;
         GameManager.UI.CloseSelectUI();
     }
-
-    public void CursorMove()
+    public void OnCursorCancel(InputValue value)
     {
-
+        CursorCancel();
+        CursorPosition();
     }
+
     //커서의 움직임 구현
-    public void OnCursorMove(InputValue value)
+    public void CursorMove()
     {
         if (!OnSelectUI)
         {
-            if(value.Get<Vector2>().x > 0)
+            if(moveDir.x > 0)
             {
                 if (dataOrder % 8 == 7  )
                 {
@@ -151,7 +160,7 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
                 Refresh();
             }
             
-            if(value.Get<Vector2>().x < 0)
+            if(moveDir.x < 0)
             {
                 if (dataOrder % 8 == 0)
                 {
@@ -164,7 +173,7 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
                 Refresh();
             }
             
-            if(value.Get<Vector2>().y > 0)
+            if(moveDir.y > 0)
             {
                 if (dataOrder / 8 == 0)
                 {
@@ -177,7 +186,7 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
                 Refresh();
             }
             
-            if(value.Get<Vector2>().y < 0)
+            if(moveDir.y < 0)
             {
                 if (dataOrder / 8 == 0)
                 {
@@ -190,17 +199,23 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
                 Refresh();
             }
         }
-        else 
+        else
         {
-            selectUIOrder = 0;
-            if(value.Get<Vector2>().y > 0)
+            if(moveDir.y > 0)
             {
                 selectUIOrder -= 1 ;
+                Refresh();
             }
-            if(value.Get<Vector2>().y > 0)
+            if(moveDir.y < 0)
             {
                 selectUIOrder += 1 ;
+                Refresh();
             }
         }
+    }
+    public void OnCursorMove(InputValue value)
+    {
+        moveDir = value.Get<Vector2>();
+        CursorMove();
     }
 }
