@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public enum ItemType
 {
+    Default,
     Equipment,
-    Furniture,
-    Default
+    Furniture
 }
 [CreateAssetMenu(fileName = "ItemData", menuName = "Data/ItemData")]
 public class ItemData : ScriptableObject

@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerControll : MonoBehaviour
 {
+    //인벤토리 종료시 발생하는 이벤트
+    public UnityAction OnInventoryShutDown;
+
     //움직임속도
     [SerializeField] float moveSpeed;
     [SerializeField] float runSpeed;
@@ -169,6 +173,7 @@ public class PlayerControll : MonoBehaviour
         }
     }
 
+    //인벤토리 초기화! scriptableObject값
     private void OnApplicationQuit()
     {
         inventory.Container.Clear();
@@ -193,6 +198,7 @@ public class PlayerControll : MonoBehaviour
         else
         {
             animator.SetBool("isOnInven", false);
+            OnInventoryShutDown?.Invoke();
             GameManager.UI.CloseInventoryUI();
             GameManager.UI.CloseSelectUI();
         }

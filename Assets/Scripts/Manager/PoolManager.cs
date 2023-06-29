@@ -25,7 +25,7 @@ public class PoolManager : MonoBehaviour
             string key = prefab.name;
 
             if (!poolDic.ContainsKey(key))
-                CreatePool(key, prefab);
+                CreatePool(key, prefab);    
 
             GameObject obj = poolDic[key].Get();
             obj.transform.parent = parent;

@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-   
     private EventSystem eventSystem;
 
     private Canvas UICanvas;
     
     private Canvas InventoryCanvas;
 
-    private Canvas SelectUI;
+    public Canvas SelectUI;
 
-    private Vector3 SelectUiOffset = new Vector3(150,-150,0);
+    //private Vector3 SelectUiOffset = new Vector3(150,-150,0);
 
     private Canvas DescriptUI;
+
 
     private void Awake()
     {
@@ -28,27 +29,26 @@ public class UIManager : MonoBehaviour
 
         UICanvas = GameManager.Resource.Instantiate<Canvas>("UI/UICanvas");
         UICanvas.gameObject.name = "UICanvas";
-        
+            
         InventoryCanvas = GameManager.Resource.Instantiate<Canvas>("UI/InventoryCanvas");
         InventoryCanvas.gameObject.name = "InventoryCanvas";
         InventoryCanvas.sortingOrder = 32;
         InventoryCanvas.gameObject.SetActive(false);
         InventoryCanvas.transform.SetParent(UICanvas.transform);
 
-
         SelectUI = GameManager.Resource.Instantiate<Canvas>("UI/SelectUI");
         SelectUI.gameObject.name = "SelectUI";
-        SelectUI.sortingOrder = 64;
+        SelectUI.sortingOrder = 32;
         SelectUI.gameObject.SetActive(false);
         SelectUI.transform.SetParent(UICanvas.transform);
-/*
-        DescriptUI = GameManager.Resource.Instantiate<Canvas>("UI/DescriptUI");
-        DescriptUI.gameObject.name = "DescriptUI";
-        DescriptUI.sortingOrder = 64;
-        DescriptUI.gameObject.SetActive(false);
-        DescriptUI.transform.SetParent(UICanvas.transform);*/
-    }
 
+        /*
+                DescriptUI = GameManager.Resource.Instantiate<Canvas>("UI/DescriptUI");
+                DescriptUI.gameObject.name = "DescriptUI";
+                DescriptUI.sortingOrder = 64;
+                DescriptUI.gameObject.SetActive(false);
+                DescriptUI.transform.SetParent(UICanvas.transform);*/
+    }
     public void OpenInventoryUI()
     {
         InventoryCanvas.gameObject.SetActive(true);
@@ -66,13 +66,13 @@ public class UIManager : MonoBehaviour
         switch (type)
         {            
             case ItemType.Default:
-                SelectUI.transform.GetChild(0).gameObject.SetActive(true);
+                SelectUI.transform.GetChild((int)type).gameObject.SetActive(true);
                 break;
             case ItemType.Equipment:
-                SelectUI.transform.GetChild(1).gameObject.SetActive(true);
+                SelectUI.transform.GetChild((int)type).gameObject.SetActive(true);
                 break;
             case ItemType.Furniture:
-                SelectUI.transform.GetChild(2).gameObject.SetActive(true);
+                SelectUI.transform.GetChild((int)type).gameObject.SetActive(true);
                 break;
         }
     }
