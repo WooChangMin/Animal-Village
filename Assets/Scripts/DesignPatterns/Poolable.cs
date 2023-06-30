@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Poolable : MonoBehaviour
 {
-    [SerializeField] float releaseTime;
+    /*[SerializeField] */
+    float releaseTime = 3;
 
     private ObjectPool pool;
 
@@ -16,10 +17,8 @@ public class Poolable : MonoBehaviour
     }
 
     IEnumerator ReleaseTimer()
-    {
+    {   
         yield return new WaitForSeconds(releaseTime);
-        pool.Release(this);
+        //pool.Release(this);
     }
-
-
 }
