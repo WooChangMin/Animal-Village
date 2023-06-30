@@ -13,7 +13,24 @@ public class Equip_SelectUI : BaseUI
     private void OnEnable()
     {
 
-        buttons["EquipButton"].onClick.AddListener(() => { Debug.Log("장착중"); });
-        buttons["DumpEquipButton"].onClick.AddListener(() => { Debug.Log("버렸다도구"); });
+        buttons["EquipButton"].onClick.AddListener(Test);
+        buttons["DumpEquipButton"].onClick.AddListener(Test1);
+    }
+
+    private void OnDisable()
+    {
+
+        buttons["EquipButton"].onClick.RemoveListener(Test);
+        buttons["DumpEquipButton"].onClick.RemoveListener(Test1);
+    }
+
+    private void Test()
+    {
+        Debug.Log("장착중");
+    }
+
+    private void Test1()
+    {
+        Debug.Log("장비버려버리기~");
     }
 }

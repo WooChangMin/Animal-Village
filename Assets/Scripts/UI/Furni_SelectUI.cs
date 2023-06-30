@@ -8,10 +8,27 @@ public class Furni_SelectUI : BaseUI
     {
         base.Awake();
     }
-
     private void OnEnable()
     {
-        buttons["ArrangeButton"].onClick.AddListener(() => { Debug.Log("배치중"); });
-        buttons["DumpFurniButton"].onClick.AddListener(() => { Debug.Log("버렸다가구"); });
+
+        buttons["ArrangeButton"].onClick.AddListener(Test);
+        buttons["DumpFurniButton"].onClick.AddListener(Test1);
+    }
+
+    private void OnDisable()
+    {
+
+        buttons["ArrangeButton"].onClick.RemoveListener(Test);
+        buttons["DumpFurniButton"].onClick.RemoveListener(Test1);
+    }
+
+    private void Test()
+    {
+        Debug.Log("가구배치하기~");
+    }
+
+    private void Test1()
+    {
+        Debug.Log("가구버려버리기~");
     }
 }

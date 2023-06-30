@@ -33,6 +33,6 @@ public class Default_SelectUI : BaseUI
 
     private void Test1()
     {
-        //OnItemDrop.Invoke();
+        Debug.Log("¹ö¸®±â");
     }
 }
