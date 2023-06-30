@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-[CreateAssetMenu (fileName = "Inventory", menuName = "Data/Inven0tory")]
+[CreateAssetMenu (fileName = "Inventory", menuName = "Data/Inventory")]
 public class InventoryObject : ScriptableObject
 {
     public List<InventorySlot> Container = new List<InventorySlot>();

@@ -34,7 +34,8 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
         dataOrder = 0;
         number = 0;
         Inventory.OnInventoryChanged += Refresh;
-        FindObjectOfType<PlayerControll>().OnInventoryShutDown += CursorCancel;
+        FindObjectOfType<PlayerControll>().OnInventoryClose += CursorCancel;
+
         //PlayerControll.OnInventoryShutDown += null;
         Refresh();
     }
@@ -42,7 +43,7 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
     private void OnDisable()
     {
         Inventory.OnInventoryChanged -= Refresh;
-        FindObjectOfType<PlayerControll>().OnInventoryShutDown -= CursorCancel;
+        //FindObjectOfType<PlayerControll>().OnInventoryShutDown -= CursorCancel;
         //PlayerControll.OnInventoryShutDown -= null;
     }
 

@@ -8,8 +8,8 @@ using UnityEngine.InputSystem;
 public class PlayerControll : MonoBehaviour
 {
     //인벤토리 종료시 발생하는 이벤트
-    public UnityAction OnInventoryShutDown;
-
+    public UnityAction OnInventoryClose;
+    public UnityAction OnInventoryOpen;
     //움직임속도
     [SerializeField] float moveSpeed;
     [SerializeField] float runSpeed;
@@ -193,12 +193,13 @@ public class PlayerControll : MonoBehaviour
         if (activeInventory)
         {
             animator.SetBool("isOnInven", true);
+            OnInventoryOpen?.Invoke();
             GameManager.UI.OpenInventoryUI();
         }
         else
         {
             animator.SetBool("isOnInven", false);
-            OnInventoryShutDown?.Invoke();
+            OnInventoryClose?.Invoke();  
             GameManager.UI.CloseInventoryUI();
             GameManager.UI.CloseSelectUI();
         }
