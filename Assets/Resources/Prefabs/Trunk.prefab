@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3365996}
   - component: {fileID: 2323198}
   - component: {fileID: 6099326075189087352}
-  m_Layer: 0
+  - component: {fileID: -5516869494598919153}
+  m_Layer: 7
   m_Name: Trunk
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,3 +98,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.1712024, y: 0.47050548, z: 0.4667424}
   m_Center: {x: -2.346426e-11, y: 0.23083606, z: 0.008938305}
+--- !u!114 &-5516869494598919153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b3fdfe8741b8ef409f7a41451d8fea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 11400000, guid: 61fcb2663d5edcd438da02cf02113fe4, type: 2}
