@@ -38,8 +38,8 @@ public class CameraZoom : MonoBehaviour
 
     private void OnDisable()
     {
-        FindObjectOfType<PlayerControll>().OnInventoryOpen -= InventoryZoomIn;
-        FindObjectOfType<PlayerControll>().OnInventoryClose -= InventoryZoomOut;
+       //FindObjectOfType<PlayerControll>().OnInventoryOpen -= InventoryZoomIn;
+       //FindObjectOfType<PlayerControll>().OnInventoryClose -= InventoryZoomOut;
     }
 
     private void InventoryZoomIn()
