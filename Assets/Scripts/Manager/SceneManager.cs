@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnitySceneManager = UnityEngine.SceneManagement.SceneManager;
 
 public class SceneManager : MonoBehaviour
 {
@@ -20,29 +21,40 @@ public class SceneManager : MonoBehaviour
 
     private void Awake()
     {
-        LoadingUI loadingUI = Resources.Load<LoadingUI>("UI/LoadingUI");
-        this.loadingUI = Instantiate(loadingUI);
-        this.loadingUI.transform.SetParent(transform);
-        this.loadingUI.gameObject.SetActive(false);
+        loadingUI = GameManager.Resource.Instantiate<LoadingUI>("UI/LoadingUI");
+        loadingUI.gameObject.name = "LoadingUI";
+        loadingUI.gameObject.SetActive(false);
+        loadingUI.transform.SetParent(transform);
     }
 
     public void LoadScene(string sceneName)
     {
         StartCoroutine(LoadingRoutine(sceneName));
     }
-    
-    IEnumerator LoadingRoutine(string SceneName)
+
+    IEnumerator LoadingRoutine(string sceneName)
     {
-        //loadingUI.progress = 0f;
-
         loadingUI.FadeOut();
-        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(3f);
+        AsyncOperation oper = UnitySceneManager.LoadSceneAsync(sceneName);
+        while (!oper.isDone)
+        {
+            //loadingUI.SetProgress(Mathf.Lerp(0.0f, 0.5f, oper.progress));
+            yield return null;
+        }
 
+        if (CurScene != null)
+        {
+            CurScene.LoadAsync();
+            while (CurScene.progress < 1f)
+            {
+                //loadingUI.SetProgress(Mathf.Lerp(0.5f, 1f, CurScene.progress));
+                yield return null;
+            }
+        }
+        yield return new WaitForSecondsRealtime(2f);
 
-        //loadingUI.SetProgress(1f);
         loadingUI.FadeIn();
-        Time.timeScale = 1f;
-        yield return new WaitForSeconds(0.5f);
     }
 }
     

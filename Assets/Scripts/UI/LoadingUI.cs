@@ -5,22 +5,35 @@ using UnityEngine;
 public class LoadingUI : MonoBehaviour
 {
     private Animator animator;
-    private float progress;
-
+    
 
     private void Awake()
     {
         animator = GetComponent<Animator>();    
     }
 
-    public void FadeIn()
+    public void FadeIn()    
     {
         animator.SetTrigger("FadeIn");
+        LoadingUIOff();
+
     }
 
     public void FadeOut()
     {
+        LoadingUIOn();
         animator.SetTrigger("FadeOut");
     }
+
+    public void LoadingUIOff()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void LoadingUIOn()
+    {
+        gameObject.SetActive(true);
+    }
+
 }
     

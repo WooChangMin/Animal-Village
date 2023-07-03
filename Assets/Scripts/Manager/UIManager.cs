@@ -9,6 +9,10 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject StartUI;
+
+    public GameObject GameUI;
+
     private EventSystem eventSystem;
 
     private Canvas UICanvas;
@@ -16,6 +20,8 @@ public class UIManager : MonoBehaviour
     private Canvas InventoryCanvas;
 
     public Canvas SelectUI;
+
+    public Canvas loadingUI;
 
     //private Vector3 SelectUiOffset = new Vector3(150,-150,0);
 
@@ -29,7 +35,40 @@ public class UIManager : MonoBehaviour
 
         UICanvas = GameManager.Resource.Instantiate<Canvas>("UI/UICanvas");
         UICanvas.gameObject.name = "UICanvas";
-            
+
+/*
+        loadingUI = GameManager.Resource.Instantiate<Canvas>("UI/LoadingUI");
+        loadingUI.gameObject.name = "LoadingUI";
+        loadingUI.sortingOrder = 32;
+        loadingUI.transform.SetParent(transform);
+        loadingUI.gameObject.SetActive(false);
+
+        InventoryCanvas = GameManager.Resource.Instantiate<Canvas>("UI/InventoryCanvas");
+        InventoryCanvas.gameObject.name = "InventoryCanvas";
+        InventoryCanvas.sortingOrder = 32;
+        InventoryCanvas.gameObject.SetActive(false);
+        InventoryCanvas.transform.SetParent(transform);
+
+
+        SelectUI = GameManager.Resource.Instantiate<Canvas>("UI/SelectUI");
+        SelectUI.gameObject.name = "SelectUI";
+        SelectUI.sortingOrder = 32;
+        SelectUI.gameObject.SetActive(false);
+        SelectUI.transform.SetParent(transform);*/
+        /*
+        DescriptUI = GameManager.Resource.Instantiate<Canvas>("UI/DescriptUI");
+        DescriptUI.gameObject.name = "DescriptUI";
+        DescriptUI.sortingOrder = 64;
+        DescriptUI.gameObject.SetActive(false);
+        DescriptUI.transform.SetParent(UICanvas.transform);*/
+    }
+
+    public void LoadMapUI()
+    {
+        UICanvas = GameManager.Resource.Instantiate<Canvas>("UI/UICanvas");
+        UICanvas.gameObject.name = "UICanvas";
+
+
         InventoryCanvas = GameManager.Resource.Instantiate<Canvas>("UI/InventoryCanvas");
         InventoryCanvas.gameObject.name = "InventoryCanvas";
         InventoryCanvas.sortingOrder = 32;
@@ -42,12 +81,6 @@ public class UIManager : MonoBehaviour
         SelectUI.gameObject.SetActive(false);
         SelectUI.transform.SetParent(UICanvas.transform);
 
-        /*
-                DescriptUI = GameManager.Resource.Instantiate<Canvas>("UI/DescriptUI");
-                DescriptUI.gameObject.name = "DescriptUI";
-                DescriptUI.sortingOrder = 64;
-                DescriptUI.gameObject.SetActive(false);
-                DescriptUI.transform.SetParent(UICanvas.transform);*/
     }
     public void OpenInventoryUI()
     {
@@ -80,10 +113,10 @@ public class UIManager : MonoBehaviour
     {
         SelectUI.gameObject.SetActive(false);
     }
-
+/*
     public void OpenDiscriptUI()
     {
-    }
+    }*/
     public void InitSelectUI()
     {
         SelectUI.gameObject.SetActive(true);
@@ -91,12 +124,4 @@ public class UIManager : MonoBehaviour
         SelectUI.transform.GetChild(1).gameObject.SetActive(false);
         SelectUI.transform.GetChild(2).gameObject.SetActive(false);
     }
-
-    /*public void ChangeImageSlot(Sprite _sprite, int i)
-    {
-        //GameObject.Find("Slot"+i).GetComponentInChildren<Image>().sprite = _sprite;
-        //GameObject.Find($"Slot{i}").GetComponentInChildren<CanvasRenderer>().cullTransparentMesh = false;
-        GameObject.Find("Slot1").GetComponentInChildren<CanvasRenderer>().cullTransparentMesh = false;
-        //slotUI.ChangeImage(_sprite);
-    }*/
 }
