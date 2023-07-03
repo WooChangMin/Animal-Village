@@ -90,6 +90,7 @@ public class PlayerControll : MonoBehaviour
     //움직임 구현 (뛸때 걸을떄 속도조절)
     private void Move()
     {
+        Debug.Log(2);
         if (!activeInventory & !isPick)
         {
             runEffect.Play();
