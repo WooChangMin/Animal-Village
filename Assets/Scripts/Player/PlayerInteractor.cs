@@ -19,7 +19,9 @@ public class PlayerInteractor : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(point.position, range, targetMask);
         foreach(Collider collider in colliders)
         {
-            Vector3 dirToTarget = (collider.transform.position - transform.position).normalized;
+            IInteractable interactable = collider.GetComponent<IInteractable>();
+            interactable?.Interact();
+            /*Vector3 dirToTarget = (collider.transform.position - transform.position).normalized;
             if (Vector3.Dot(dirToTarget, Vector3.forward) < Mathf.Cos(angle* 0.5f* Mathf.Deg2Rad))
             {   
 
@@ -32,7 +34,7 @@ public class PlayerInteractor : MonoBehaviour
                     adaptor.Interact(this);
                     break;
                 }
-            }
+            }*/
         }
 
     }

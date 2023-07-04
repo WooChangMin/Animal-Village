@@ -11,7 +11,6 @@ using UnityEngine.UI;
 public class InventoryObject : ScriptableObject
 {
     public List<InventorySlot> Container = new List<InventorySlot>();
-    public GameObject InventoryUI;
     public UnityAction OnInventoryChanged;
         
     public void AddItem(ItemData _item, int _amount)

@@ -6,14 +6,14 @@ public class MapScene : BaseScene
 {
     private void Awake()
     {
-        Debug.Log("GameScene Init");
+        Debug.Log("MapScene Init");
     }
 
     protected override IEnumerator LoadingRoutine()
     {
         GameManager.UI.LoadMapUI();
 
-        Debug.Log("GameScene Load");
+        Debug.Log("MapScene Load");
         // fake loading
         yield return new WaitForSecondsRealtime(0.2f);
         progress = 0.2f;
@@ -25,11 +25,11 @@ public class MapScene : BaseScene
         progress = 0.8f;
         yield return new WaitForSecondsRealtime(0.2f);
         progress = 1.0f;
-        Debug.Log("GameScene Loaded");
+        Debug.Log("MapScene Loaded");
     }
 
     private void OnDestroy()
     {
-        Debug.Log("GameScene Release");
+        Debug.Log("MapScene Release");
     }
 }

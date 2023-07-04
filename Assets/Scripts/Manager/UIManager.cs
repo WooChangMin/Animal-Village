@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,9 +24,9 @@ public class UIManager : MonoBehaviour
 
     public Canvas loadingUI;
 
-    //private Vector3 SelectUiOffset = new Vector3(150,-150,0);
+    public Canvas CoinUI;
 
-    private Canvas DescriptUI;
+    private Canvas ConversationUI;
 
 
     private void Awake()
@@ -68,7 +69,6 @@ public class UIManager : MonoBehaviour
         UICanvas = GameManager.Resource.Instantiate<Canvas>("UI/UICanvas");
         UICanvas.gameObject.name = "UICanvas";
 
-
         InventoryCanvas = GameManager.Resource.Instantiate<Canvas>("UI/InventoryCanvas");
         InventoryCanvas.gameObject.name = "InventoryCanvas";
         InventoryCanvas.sortingOrder = 32;
@@ -80,7 +80,21 @@ public class UIManager : MonoBehaviour
         SelectUI.sortingOrder = 32;
         SelectUI.gameObject.SetActive(false);
         SelectUI.transform.SetParent(UICanvas.transform);
+    }
 
+    public void LoadShopUI()
+    {
+        CoinUI = GameManager.Resource.Instantiate<Canvas>("UI/CoinUI");
+        CoinUI.gameObject.name = "CoinUI";
+        CoinUI.sortingOrder = 16;
+        CoinUI.gameObject.SetActive(true);
+        CoinUI.transform.SetParent(UICanvas.transform);
+
+        ConversationUI = GameManager.Resource.Instantiate<Canvas>("UI/NpcConversationUI");
+        ConversationUI.gameObject.name = "ConversationUI";
+        ConversationUI.sortingOrder = 16;
+        ConversationUI.gameObject.SetActive(false);
+        ConversationUI.transform.SetParent(UICanvas.transform);
     }
     public void OpenInventoryUI()
     {
@@ -123,5 +137,11 @@ public class UIManager : MonoBehaviour
         SelectUI.transform.GetChild(0).gameObject.SetActive(false);
         SelectUI.transform.GetChild(1).gameObject.SetActive(false);
         SelectUI.transform.GetChild(2).gameObject.SetActive(false);
+    }
+
+    public void OpenConversationUI(string dialogue)
+    {
+        ConversationUI.gameObject.SetActive(true);
+        ConversationUI.GetComponent<TMP_Text>().text = dialogue;
     }
 }
