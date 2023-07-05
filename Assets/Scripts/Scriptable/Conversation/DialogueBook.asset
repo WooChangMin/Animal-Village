@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ad46ba48c118c42ad85e76a940c9da, type: 3}
+  m_Name: DialogueBook
+  m_EditorClassIdentifier: 
+  container:
+  - {fileID: 11400000, guid: 204af5bb81916ce4188a73873f676a11, type: 2}
+  - {fileID: 11400000, guid: 886fececdf4e49747a4316f1b888f05d, type: 2}
+  - {fileID: 11400000, guid: f0b9e2c3ae0694a46a7e91680a515a38, type: 2}
+  - {fileID: 11400000, guid: be722b2fb14f61747a92cfd9ecbbbea9, type: 2}
