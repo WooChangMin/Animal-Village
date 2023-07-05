@@ -1,0 +1,34 @@
+{
+    "name": "TitleActions",
+    "maps": [
+        {
+            "name": "Title",
+            "id": "18b5fe17-507d-4c76-9307-7de694d50de1",
+            "actions": [
+                {
+                    "name": "GameStart",
+                    "type": "Button",
+                    "id": "1ef85b23-10ca-44eb-90c0-3d9a8ddfc504",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "3517c9ba-6f42-4756-9705-87dca8cde39d",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GameStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
