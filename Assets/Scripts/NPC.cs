@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class NPC : MonoBehaviour, IInteractable
 {
-    public ConversationScript scripts;
+    public DialogueBook scripts;
     
 
     CharacterController controller;
@@ -39,13 +39,18 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        Talk(scriptOrder);
+        Talk();
     }
 
-    public void Talk(int sequence)
+    public void Talk()
     {
-        string dialogue = scripts.container[scriptOrder];
-        GameManager.UI.OpenConversationUI(dialogue);
+        Debug.Log(1234);
+        GameManager.UI.OpenOptionUI();
+        GameManager.UI.OpenConversationUI();
+        if (scriptOrder == 0)
+        {
+            GameManager.UI.OpenOptionUI();
+        }
     }
     private void Move()
     {

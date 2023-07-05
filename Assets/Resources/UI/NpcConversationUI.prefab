@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000024796, y: -268}
-  m_SizeDelta: {x: 1034.6907, y: 336.6615}
+  m_AnchoredPosition: {x: 0.0000038146973, y: -268}
+  m_SizeDelta: {x: 990.8224, y: 281.095}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2865146731648414504
 CanvasRenderer:
@@ -93,14 +93,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -300,13 +300,14 @@ GameObject:
   - component: {fileID: 2865146732686680639}
   - component: {fileID: 2865146732686680632}
   - component: {fileID: 2865146732686680633}
+  - component: {fileID: 487889246575313877}
   m_Layer: 5
   m_Name: NpcConversationUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2865146732686680638
 RectTransform:
   m_ObjectHideFlags: 0
@@ -391,6 +392,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &487889246575313877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2865146732686680634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99dcbafe547fdde408fded2e8d7069f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue: {fileID: 11400000, guid: fecf180418f4d1a438c2fa7a92829ee5, type: 2}
 --- !u!1 &4323114402402285741
 GameObject:
   m_ObjectHideFlags: 0

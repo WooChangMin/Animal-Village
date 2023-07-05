@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using TMPro;
 using Unity.VisualScripting;
@@ -27,6 +28,9 @@ public class UIManager : MonoBehaviour
     public Canvas CoinUI;
 
     private Canvas ConversationUI;
+
+    private Canvas OptionUI;
+    
 
 
     private void Awake()
@@ -90,11 +94,20 @@ public class UIManager : MonoBehaviour
         CoinUI.gameObject.SetActive(true);
         CoinUI.transform.SetParent(UICanvas.transform);
 
+
+        Debug.Log(2);
         ConversationUI = GameManager.Resource.Instantiate<Canvas>("UI/NpcConversationUI");
+        ConversationUI.gameObject.SetActive(false);
         ConversationUI.gameObject.name = "ConversationUI";
         ConversationUI.sortingOrder = 16;
-        ConversationUI.gameObject.SetActive(false);
         ConversationUI.transform.SetParent(UICanvas.transform);
+
+        Debug.Log(1);
+        OptionUI = GameManager.Resource.Instantiate<Canvas>("UI/OptionUI");
+        OptionUI.gameObject.SetActive(false);
+        OptionUI.gameObject.name = "OptionUI";
+        OptionUI.sortingOrder = 32;
+        OptionUI.transform.SetParent(UICanvas.transform);
     }
     public void OpenInventoryUI()
     {
@@ -139,9 +152,33 @@ public class UIManager : MonoBehaviour
         SelectUI.transform.GetChild(2).gameObject.SetActive(false);
     }
 
-    public void OpenConversationUI(string dialogue)
+    public void OpenConversationUI()
     {
         ConversationUI.gameObject.SetActive(true);
-        ConversationUI.GetComponent<TMP_Text>().text = dialogue;
+        //ConversationUI.GetComponentInChildren<TMP_Text>().text = dialogue;
     }
+
+    public void CloseConversationUI()
+    {
+        ConversationUI.gameObject.SetActive(false);
+    }
+
+    public void OpenOptionUI()
+    {
+        OptionUI.gameObject.SetActive(true);
+
+       //GameObject obj = GameManager.UI.OptionUI.gameObject;
+       //obj.SetActive(true);
+        
+        //Outline[] lineContainer = obj.GetComponentsInChildren<Outline>();
+       // for(int i = 0;  i< lineContainer.Count() ;  i++)
+    }
+
+    public void CloseOptionUI()
+    {
+        OptionUI.gameObject.SetActive(true);
+    }
+
+
+
 }

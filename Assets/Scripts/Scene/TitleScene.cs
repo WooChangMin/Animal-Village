@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class TitleScene : BaseScene
@@ -21,8 +22,13 @@ public class TitleScene : BaseScene
     {
         
     }
-    public void StartButton()
+    public void GameStart()
     {
         GameManager.Scene.LoadScene("MapScene");
+    }
+
+    public void OnGameStart()
+    {
+        GameStart();
     }
 }
