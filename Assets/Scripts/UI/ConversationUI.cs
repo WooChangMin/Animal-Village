@@ -3,42 +3,70 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class ConversationUI : MonoBehaviour
 {
     public DialogueBook dialogue;
     private int dialogueOrder = 0;
-
+    OptionUI option;
+    Image image;
+    
     TMP_Text curDialogue;
 
     private void Awake()
     {
-        curDialogue = gameObject.GetComponent<TMP_Text>();
+        curDialogue = gameObject.GetComponentInChildren<TMP_Text>();
+        option = gameObject.GetComponentInChildren<OptionUI>(true);
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && dialogueOrder!=0)
-        {
-             
-        }
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {                 
+            if (!option.gameObject.activeSelf)
+            {
+                ChangeDialogue();
+            }
+        }        
     }
 
     private void OnEnable()
     {
-
-        FindObjectOfType<OptionUI>().OnChangeDialogue += ChangeDialogue;
+        gameObject.GetComponentInChildren<OptionUI>().OnChangeDialogue += DialogueSequence;
+        ChangeDialogue();
+        
+        //FindObjectOfType<OptionUI>().OnChangeDialogue += ChangeDialogue;
 
     }
-
     private void OnDisable()
     {
-        FindObjectOfType<OptionUI>().OnChangeDialogue -= ChangeDialogue;
+        transform.GetComponentInChildren<OptionUI>().OnChangeDialogue -= DialogueSequence;
+        //FindObjectOfType<OptionUI>().OnChangeDialogue -= ChangeDialogue;
     }
 
-    private void ChangeDialogue(int order)
+    private void ChangeDialogue()
     {
-        dialogueOrder = order+1;
         curDialogue.text = dialogue.container[dialogueOrder].descript.ToString();
+    }
+    private void DialogueSequence(int order)
+    {
+        switch (order)
+        {
+            case 0:
+                dialogueOrder = 1;
+                ChangeDialogue();
+                GameManager.UI.OpenShopUI();
+
+                break;
+
+
+        }
+
+        if(order <= 1)
+            dialogueOrder = order + 1;
+        else
+            dialogueOrder = 3;
+        ChangeDialogue();
     }
 }

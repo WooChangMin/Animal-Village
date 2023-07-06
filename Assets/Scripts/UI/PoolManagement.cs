@@ -9,10 +9,10 @@ public class PoolManagement : MonoBehaviour
     ItemDB itemDatabase;
 
     private int defaultPoolSize = 6;
-    private int defaultMaxSize = 12;
+    //private int defaultMaxSize = 12;
 
     private int equipPoolSize = 2;
-    private int equipMaxSize = 3;
+    //private int equipMaxSize = 3;
 
     private List<GameObject> objectPool = new();
 

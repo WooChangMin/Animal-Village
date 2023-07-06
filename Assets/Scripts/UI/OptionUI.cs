@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class OptionUI : BaseUI
 {
@@ -46,7 +47,7 @@ public class OptionUI : BaseUI
             Refresh();
         }
 
-        if(Input.GetKeyDown(KeyCode.G) && isOpen)
+        if(isOpen && Input.GetKeyDown(KeyCode.Space))
         {
             SelectOption();
         }
@@ -55,16 +56,17 @@ public class OptionUI : BaseUI
     //어떤 대상을 특정중인지 outline의 enable 유무로 판별
     private void Refresh()
     {
-        Outline[] outlines = gameObject.GetComponentsInChildren<Outline>();
+        TMP_Text[] texts = gameObject.GetComponentsInChildren<TMP_Text>();
         for (int i = 0; i<3; i++)
         {
             if(i== order)
             {
-                outlines[i].enabled = true;
+                texts[i].fontStyle = FontStyles.Underline;
+                //outlines[i].enabled = true;
             }
             else
             {
-                outlines[i].enabled = false;
+                texts[i].fontStyle = FontStyles.Normal;
             }
         }
     }
