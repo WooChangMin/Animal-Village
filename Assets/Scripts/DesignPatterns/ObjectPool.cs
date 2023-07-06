@@ -12,12 +12,12 @@ public class ObjectPool : MonoBehaviour
 
     private Stack<Poolable> objectPool = new Stack<Poolable>();
 
-    private int defaultPoolSize = 6;
-    private int defaultMaxSize = 12;
-
-    private int equipPoolSize = 2;
-    private int equipMaxSize = 3;
-
+   //private int defaultPoolSize = 6;
+   //private int defaultMaxSize = 12;
+   //
+   //private int equipPoolSize = 2;
+   //private int equipMaxSize = 3;
+   //
 
     [SerializeField] Poolable poolablePrefab;
 

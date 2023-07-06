@@ -29,10 +29,6 @@ public class UIManager : MonoBehaviour
 
     private Canvas ConversationUI;
 
-    private Canvas OptionUI;
-    
-
-
     private void Awake()
     {
         eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
@@ -94,20 +90,26 @@ public class UIManager : MonoBehaviour
         CoinUI.gameObject.SetActive(true);
         CoinUI.transform.SetParent(UICanvas.transform);
 
-
-        Debug.Log(2);
         ConversationUI = GameManager.Resource.Instantiate<Canvas>("UI/NpcConversationUI");
-        ConversationUI.gameObject.SetActive(false);
         ConversationUI.gameObject.name = "ConversationUI";
         ConversationUI.sortingOrder = 16;
+        ConversationUI.gameObject.SetActive(false);
         ConversationUI.transform.SetParent(UICanvas.transform);
 
-        Debug.Log(1);
+/*
         OptionUI = GameManager.Resource.Instantiate<Canvas>("UI/OptionUI");
-        OptionUI.gameObject.SetActive(false);
         OptionUI.gameObject.name = "OptionUI";
         OptionUI.sortingOrder = 32;
+        OptionUI.gameObject.SetActive(false);
         OptionUI.transform.SetParent(UICanvas.transform);
+
+        ConversationUI.sortingOrder = 16;
+        ConversationUI = GameManager.Resource.Instantiate<Canvas>("UI/NpcConversationUI");
+        ConversationUI.gameObject.name = "ConversationUI";
+        ConversationUI.gameObject.SetActive(false);
+        ConversationUI.transform.SetParent(UICanvas.transform);
+*/
+
     }
     public void OpenInventoryUI()
     {
@@ -119,6 +121,15 @@ public class UIManager : MonoBehaviour
         InventoryCanvas.gameObject.SetActive(false);
     }
 
+    public void OpenShopUI()
+    {
+
+    }
+
+    public void CloseShopUI()
+    {
+
+    }
     public void OpenSelectUI(ItemType type)
     {
         InitSelectUI();
@@ -165,7 +176,6 @@ public class UIManager : MonoBehaviour
 
     public void OpenOptionUI()
     {
-        OptionUI.gameObject.SetActive(true);
 
        //GameObject obj = GameManager.UI.OptionUI.gameObject;
        //obj.SetActive(true);
@@ -176,9 +186,6 @@ public class UIManager : MonoBehaviour
 
     public void CloseOptionUI()
     {
-        OptionUI.gameObject.SetActive(true);
-    }
-
-
-
+        ConversationUI.GetComponentInChildren<OptionUI>().gameObject.SetActive(false);
+    }    
 }

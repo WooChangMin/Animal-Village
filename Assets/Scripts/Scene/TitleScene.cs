@@ -10,6 +10,11 @@ public class TitleScene : BaseScene
         Debug.Log("Title Scene Alive");
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+            GameManager.Scene.LoadScene("MapScene");
+    }
     protected override IEnumerator LoadingRoutine()
     {
         progress = 0;
@@ -21,14 +26,5 @@ public class TitleScene : BaseScene
     private void OnDestroy()
     {
         
-    }
-    public void GameStart()
-    {
-        GameManager.Scene.LoadScene("MapScene");
-    }
-
-    public void OnGameStart()
-    {
-        GameStart();
-    }
+    }   
 }

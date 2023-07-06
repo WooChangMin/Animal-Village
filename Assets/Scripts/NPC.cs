@@ -18,9 +18,6 @@ public class NPC : MonoBehaviour, IInteractable
     private Vector3 targetPosition;
     private Animator animator;
 
-    private int scriptOrder=0;
-
-
     private void Awake()
     {
         animator = GetComponent<Animator>();    
@@ -45,12 +42,11 @@ public class NPC : MonoBehaviour, IInteractable
     public void Talk()
     {
         Debug.Log(1234);
-        GameManager.UI.OpenOptionUI();
         GameManager.UI.OpenConversationUI();
-        if (scriptOrder == 0)
+        /*if (scriptOrder == 0)
         {
             GameManager.UI.OpenOptionUI();
-        }
+        }*/
     }
     private void Move()
     {

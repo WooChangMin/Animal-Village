@@ -6,13 +6,13 @@ public class ShopScene : BaseScene
 {
     private void Awake()
     {
-        Debug.Log("¸Ê¾À ·Îµå");
+        Debug.Log("¸Ê¾À ·Îµå"); 
     }
     protected override IEnumerator LoadingRoutine()
     {
         GameManager.UI.LoadMapUI();
-
-
+        
+        
         GameManager.UI.LoadShopUI();
 
 
