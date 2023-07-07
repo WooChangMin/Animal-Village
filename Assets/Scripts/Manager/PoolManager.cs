@@ -255,6 +255,11 @@ public class PoolManager : MonoBehaviour
 
     private void CreateUIPool(string key, GameObject prefab)
     {
+        GameObject root = new GameObject();
+        root.gameObject.name = $"{key}Container";
+        root.transform.parent = poolRoot;
+        poolContainer.Add(key, root.transform);
+
         ObjectPool<GameObject> pool = new ObjectPool<GameObject>(
             createFunc: () =>
             {
@@ -265,11 +270,12 @@ public class PoolManager : MonoBehaviour
             actionOnGet: (GameObject obj) =>
             {
                 obj.gameObject.SetActive(true);
+                obj.transform.parent = null;
             },
             actionOnRelease: (GameObject obj) =>
             {
                 obj.gameObject.SetActive(false);
-                obj.transform.SetParent(canvasRoot.transform, false);
+                obj.transform.parent = poolContainer[key];
             },
             actionOnDestroy: (GameObject obj) =>
             {

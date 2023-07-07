@@ -1,9 +1,11 @@
+using Mono.CompilerServices.SymbolWriter;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -19,7 +21,7 @@ public class UIManager : MonoBehaviour
 
     private Canvas UICanvas;
     
-    private Canvas InventoryCanvas;
+    private GameObject InventoryUI;
 
     public Canvas SelectUI;
 
@@ -29,6 +31,13 @@ public class UIManager : MonoBehaviour
 
     private Canvas ConversationUI;
 
+    public Canvas windowCanvas;
+    private Canvas popUpCanvas;
+
+    public Stack<PopUpUI> popUpStack;
+
+    
+
     private void Awake()
     {
         eventSystem = GameManager.Resource.Instantiate<EventSystem>("UI/EventSystem");
@@ -37,25 +46,34 @@ public class UIManager : MonoBehaviour
         UICanvas = GameManager.Resource.Instantiate<Canvas>("UI/UICanvas");
         UICanvas.gameObject.name = "UICanvas";
 
-/*
-        loadingUI = GameManager.Resource.Instantiate<Canvas>("UI/LoadingUI");
-        loadingUI.gameObject.name = "LoadingUI";
-        loadingUI.sortingOrder = 32;
-        loadingUI.transform.SetParent(transform);
-        loadingUI.gameObject.SetActive(false);
+        popUpCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
+        popUpCanvas.gameObject.name = "PopUpCanvas";
+        popUpCanvas.sortingOrder = 100;
+        popUpStack = new Stack<PopUpUI>();
 
-        InventoryCanvas = GameManager.Resource.Instantiate<Canvas>("UI/InventoryCanvas");
-        InventoryCanvas.gameObject.name = "InventoryCanvas";
-        InventoryCanvas.sortingOrder = 32;
-        InventoryCanvas.gameObject.SetActive(false);
-        InventoryCanvas.transform.SetParent(transform);
+        windowCanvas = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
+        windowCanvas.gameObject.name = "WindowCanvas";
+        windowCanvas.sortingOrder = 10;
+
+        /*
+                loadingUI = GameManager.Resource.Instantiate<Canvas>("UI/LoadingUI");
+                loadingUI.gameObject.name = "LoadingUI";
+                loadingUI.sortingOrder = 32;
+                loadingUI.transform.SetParent(transform);
+                loadingUI.gameObject.SetActive(false);
+
+                InventoryCanvas = GameManager.Resource.Instantiate<Canvas>("UI/InventoryCanvas");
+                InventoryCanvas.gameObject.name = "InventoryCanvas";
+                InventoryCanvas.sortingOrder = 32;
+                InventoryCanvas.gameObject.SetActive(false);
+                InventoryCanvas.transform.SetParent(transform);
 
 
-        SelectUI = GameManager.Resource.Instantiate<Canvas>("UI/SelectUI");
-        SelectUI.gameObject.name = "SelectUI";
-        SelectUI.sortingOrder = 32;
-        SelectUI.gameObject.SetActive(false);
-        SelectUI.transform.SetParent(transform);*/
+                SelectUI = GameManager.Resource.Instantiate<Canvas>("UI/SelectUI");
+                SelectUI.gameObject.name = "SelectUI";
+                SelectUI.sortingOrder = 32;
+                SelectUI.gameObject.SetActive(false);
+                SelectUI.transform.SetParent(transform);*/
         /*
         DescriptUI = GameManager.Resource.Instantiate<Canvas>("UI/DescriptUI");
         DescriptUI.gameObject.name = "DescriptUI";
@@ -69,11 +87,11 @@ public class UIManager : MonoBehaviour
         UICanvas = GameManager.Resource.Instantiate<Canvas>("UI/UICanvas");
         UICanvas.gameObject.name = "UICanvas";
 
-        InventoryCanvas = GameManager.Resource.Instantiate<Canvas>("UI/InventoryCanvas");
-        InventoryCanvas.gameObject.name = "InventoryCanvas";
-        InventoryCanvas.sortingOrder = 32;
-        InventoryCanvas.gameObject.SetActive(false);
-        InventoryCanvas.transform.SetParent(UICanvas.transform);
+        InventoryUI = GameManager.Resource.Instantiate<GameObject>("UI/InventoryUI_proto");
+        InventoryUI.gameObject.name = "InventoryUI";
+        InventoryUI.transform.position = new Vector3(960, 540, 0);
+        InventoryUI.gameObject.SetActive(false);
+        InventoryUI.transform.SetParent(UICanvas.transform);
 
         SelectUI = GameManager.Resource.Instantiate<Canvas>("UI/SelectUI");
         SelectUI.gameObject.name = "SelectUI";
@@ -113,22 +131,28 @@ public class UIManager : MonoBehaviour
     }
     public void OpenInventoryUI()
     {
-        InventoryCanvas.gameObject.SetActive(true);
+        InventoryUI.gameObject.SetActive(true);
     }
 
     public void CloseInventoryUI()
     {
-        InventoryCanvas.gameObject.SetActive(false);
+        InventoryUI.gameObject.SetActive(false);
+    }
+    public T ShowWindowUI<T>(T windowUI) where T : WindowUI
+    {
+        T ui = GameManager.Pool.GetUI(windowUI);
+        ui.transform.SetParent(windowCanvas.transform, false);
+        return ui;
     }
 
-    public void OpenShopUI()
+    public T ShowWindowUI<T>(string path) where T : WindowUI
     {
-
+        T ui = GameManager.Resource.Load<T>(path);
+        return ShowWindowUI(ui);
     }
-
-    public void CloseShopUI()
+    public void CloseWindowUI<T>(T windowUI) where T : WindowUI
     {
-
+        GameManager.Pool.ReleaseUI(windowUI.gameObject);
     }
     public void OpenSelectUI(ItemType type)
     {
@@ -187,5 +211,41 @@ public class UIManager : MonoBehaviour
     public void CloseOptionUI()
     {
         ConversationUI.GetComponentInChildren<OptionUI>().gameObject.SetActive(false);
-    }    
+    }
+
+    public T ShowPopUpUI<T>(T popUpUI) where T : PopUpUI
+    {
+        if (popUpStack.Count > 0)
+        {
+            PopUpUI prevUI = popUpStack.Peek();
+            //prevUI.gameObject.SetActive(false);
+        }
+
+        T ui = GameManager.Pool.GetUI<T>(popUpUI);
+        ui.transform.SetParent(UICanvas.transform, false);
+        popUpStack.Push(ui);
+
+        Time.timeScale = 0f;
+        return ui;
+    }
+    public T ShowPopUpUI<T>(string path) where T : PopUpUI
+    {
+        T ui = GameManager.Resource.Load<T>(path);
+        return ShowPopUpUI(ui);
+    }
+
+    public void ClosePopUpUI()
+    {
+        PopUpUI ui = popUpStack.Pop();
+        GameManager.Pool.ReleaseUI(ui.gameObject);
+        if (popUpStack.Count > 0)
+        {
+            PopUpUI curUI = popUpStack.Peek();
+            curUI.gameObject.SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
+    }
 }
