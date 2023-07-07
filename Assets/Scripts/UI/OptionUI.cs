@@ -37,13 +37,23 @@ public class OptionUI : BaseUI
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            order = (order+1)%3;
+            if (order > 1)
+                order = 2;
+            else
+            {
+                order++;
+            }
             Refresh();
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            order = (order-1)%3;
+            if (order < 1)
+                order = 0;
+            else
+            {
+                 order--;
+            }
             Refresh();
         }
 

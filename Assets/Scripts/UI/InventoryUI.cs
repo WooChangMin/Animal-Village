@@ -75,7 +75,8 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
         if (OnSelectUI)
         {
             //선택팝업창에서 행동을 선택했을때?
-            GameManager.UI.SelectUI.transform.GetChild(number).GetComponentsInChildren<Button>()[selectUIOrder%2].onClick.Invoke();
+            GameManager.UI.SelectUI.transform.GetChild(number).GetComponentInChildren<BaseUI>().Actions(selectUIOrder % 2);
+            //[selectUIOrder%2].onClick.Invoke();
         }
         else
         {
@@ -87,12 +88,6 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
             GameManager.UI.OpenSelectUI(Inventory.Container[dataOrder].item.type);
             CursorPosition();
         }
-    }
-
-    public void ButtonClickEvent()
-    {
-        Debug.Log("click");
-
     }
 
     //커서 움직임시 커서의 위치정보 표현
@@ -150,9 +145,9 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
         {
             if(moveDir.x > 0)
             {
-                if (dataOrder % 8 == 7  )
+                if (dataOrder % 4 == 3  )
                 {
-                    dataOrder -= 7;
+                    dataOrder -= 3;
                 }
                 else
                 {
@@ -163,9 +158,9 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
             
             if(moveDir.x < 0)
             {
-                if (dataOrder % 8 == 0)
+                if (dataOrder % 4 == 0)
                 {
-                    dataOrder += 7;
+                    dataOrder += 3;
                 }
                 else
                 {
@@ -176,26 +171,26 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
             
             if(moveDir.y > 0)
             {
-                if (dataOrder / 8 == 0)
+                if (dataOrder / 4 == 0)
                 {
-                    dataOrder += 8;
+                    dataOrder += 12;
                 }
                 else
                 {
-                    dataOrder -= 8;
+                    dataOrder -= 4;
                 }
                 Refresh();
             }
             
             if(moveDir.y < 0)
             {
-                if (dataOrder / 8 == 0)
+                if (dataOrder / 4 == 3)
                 {
-                    dataOrder += 8;
+                    dataOrder -= 12;
                 }
                 else
                 {
-                    dataOrder -= 8;
+                    dataOrder += 4;
                 }
                 Refresh();
             }

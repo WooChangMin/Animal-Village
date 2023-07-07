@@ -22,26 +22,40 @@ public class ConversationUI : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            dialogueOrder = 0;
+            CloseAll();
+        }
         if (Input.GetKeyDown(KeyCode.Space))
-        {                 
+        {
             if (!option.gameObject.activeSelf)
             {
-                ChangeDialogue();
+                DialogueSequence(dialogueOrder);
+                if (!(dialogueOrder == 4))
+                    ChangeDialogue();
+                else
+                {
+                    CloseAll();
+                }
             }
-        }        
+        }
+        
     }
 
     private void OnEnable()
     {
-        gameObject.GetComponentInChildren<OptionUI>().OnChangeDialogue += DialogueSequence;
+        dialogueOrder = 0;
         ChangeDialogue();
-        
+        gameObject.GetComponentInChildren<OptionUI>().OnChangeDialogue += DialogueSequence;
+        FindObjectOfType<PlayerControll>().enabled = false;
         //FindObjectOfType<OptionUI>().OnChangeDialogue += ChangeDialogue;
 
     }
     private void OnDisable()
     {
-        transform.GetComponentInChildren<OptionUI>().OnChangeDialogue -= DialogueSequence;
+        gameObject.GetComponentInChildren<OptionUI>().OnChangeDialogue -= DialogueSequence;
+        FindObjectOfType<PlayerControll>().enabled = true;
         //FindObjectOfType<OptionUI>().OnChangeDialogue -= ChangeDialogue;
     }
 
@@ -51,22 +65,103 @@ public class ConversationUI : MonoBehaviour
     }
     private void DialogueSequence(int order)
     {
-        switch (order)
+        if (dialogueOrder == 0)
         {
-            case 0:
-                dialogueOrder = 1;
-                ChangeDialogue();
-                GameManager.UI.OpenShopUI();
+            switch (order)
+            {
+                case 0:
+                    dialogueOrder = 1;
+                    ChangeDialogue();
 
-                break;
-
-
+                    //GameManager.UI.ShowPopUpUI<PopUpUI>("UI/ShopUI");
+                    break;
+                case 1:
+                    dialogueOrder = 2;
+                    ChangeDialogue();
+                    break;
+                case 2:
+                    dialogueOrder = 3;
+                    ChangeDialogue();
+                    break;            
+            }
         }
-
-        if(order <= 1)
-            dialogueOrder = order + 1;
+        else if(dialogueOrder == 1)
+        {
+            StartCoroutine(BuySequence());
+        }
+        else if(dialogueOrder ==2)
+        {
+            StartCoroutine(SellSequence());
+        }
         else
-            dialogueOrder = 3;
+        {
+            CloseAll();
+        }
+    }
+    private IEnumerator BuySequence()
+    {
+        dialogueOrder = 3;
         ChangeDialogue();
+        while (true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SelfClose();
+                yield return StartCoroutine(BuyRoutine());
+
+                yield break;
+            }
+            GameManager.UI.OpenInventoryUI();
+            yield return null;
+        }
+    }
+
+    private IEnumerator BuyRoutine()
+    {
+        GameManager.UI.ShowPopUpUI<PopUpUI>("UI/ShopUI");
+        GameManager.UI.OpenInventoryUI();
+
+        yield return null;
+    }
+    private IEnumerator SellSequence()
+    {
+        dialogueOrder = 3;
+        ChangeDialogue();
+
+        while (true)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SelfClose();
+                yield return StartCoroutine(SellRoutine());
+            }
+            GameManager.UI.OpenInventoryUI();
+            yield return null;
+        }
+    }
+    private IEnumerator SellRoutine()
+    {
+
+        yield return null;
+    }
+    private void CloseAll()
+    {
+        GameManager.UI.CloseSelectUI();
+
+        GameManager.UI.CloseInventoryUI();
+
+        
+        if (GameManager.UI.popUpStack.Count > 0)
+        {   
+            GameManager.UI.ClosePopUpUI();
+        }
+        SelfClose();
+    }
+
+    // 자살하는 코드
+    private void SelfClose()
+    {
+        option.gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

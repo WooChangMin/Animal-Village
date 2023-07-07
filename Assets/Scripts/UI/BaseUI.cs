@@ -48,4 +48,9 @@ public class BaseUI : MonoBehaviour
 
     }
 
+    public virtual void Actions(int a)
+    {
+
+    }
+
 }

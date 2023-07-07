@@ -2,35 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Equip_SelectUI : BaseUI
-{
+public class Equip_SelectUI : BaseUI 
+{ 
     protected override void Awake()
     {
         base.Awake();
 
     }
-
-    private void OnEnable()
+    public override void Actions(int a)
     {
+        base.Actions(a);// 부모 클래스의 기본 구현 실행
 
-        buttons["EquipButton"].onClick.AddListener(Test);
-        buttons["DumpEquipButton"].onClick.AddListener(Test1);
+        // 자식 클래스에서 추가적인 로직을 작성
+        // 필요에 따라 부모 클래스의 구현을 재정의
+        if (a == 0)
+        {
+            Debug.Log("장착중");
+        }
+        else
+        {
+            Debug.Log("장비버려버리기~");
+        }
     }
 
-    private void OnDisable()
-    {
-
-        buttons["EquipButton"].onClick.RemoveListener(Test);
-        buttons["DumpEquipButton"].onClick.RemoveListener(Test1);
-    }
-
-    private void Test()
-    {
-        Debug.Log("장착중");
-    }
-
-    private void Test1()
-    {
-        Debug.Log("장비버려버리기~");
-    }
+    //private void OnEnable()
+    //{
+    //
+    //    buttons["EquipButton"].onClick.AddListener(Test);
+    //    buttons["DumpEquipButton"].onClick.AddListener(Test1);
+    //}
+    //
+    //private void OnDisable()
+    //{
+    //
+    //    buttons["EquipButton"].onClick.RemoveListener(Test);
+    //    buttons["DumpEquipButton"].onClick.RemoveListener(Test1);
+    //}
+    //
+    //private void Test()
+    //{
+    //    Debug.Log("장착중");
+    //}
+    //
+    //private void Test1()
+    //{
+    //    Debug.Log("장비버려버리기~");
+    //}
 }
