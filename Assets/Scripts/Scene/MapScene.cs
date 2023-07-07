@@ -13,7 +13,6 @@ public class MapScene : BaseScene
     {
         GameManager.UI.LoadMapUI();
 
-        Debug.Log("MapScene Load");
         // fake loading
         yield return new WaitForSecondsRealtime(0.2f);
         progress = 0.2f;
@@ -25,7 +24,6 @@ public class MapScene : BaseScene
         progress = 0.8f;
         yield return new WaitForSecondsRealtime(0.2f);
         progress = 1.0f;
-        Debug.Log("MapScene Loaded");
     }
 
     private void OnDestroy()
