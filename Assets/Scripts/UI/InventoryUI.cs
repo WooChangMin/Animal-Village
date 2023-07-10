@@ -105,7 +105,7 @@ public class InventoryUI : BaseUI //IPointerEnterHandler, IPointerExitHandler, I
         {
             if (dataOrder == 0)
             {
-                GameObject.Find("Cursor").transform.position = new Vector3(330.00f, 851.00f, 0)+ cursorOffset;
+                GameObject.Find("Cursor").transform.position = new Vector3(1185.49f, 726.36f, -2.63f) + cursorOffset;
             }
             else
             {

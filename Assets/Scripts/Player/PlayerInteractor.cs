@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PlayerInteractor : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class PlayerInteractor : MonoBehaviour
         foreach(Collider collider in colliders)
         {
             IInteractable interactable = collider.GetComponent<IInteractable>();
-            interactable?.Interact();
+            interactable?.Interact();           
             /*Vector3 dirToTarget = (collider.transform.position - transform.position).normalized;
             if (Vector3.Dot(dirToTarget, Vector3.forward) < Mathf.Cos(angle* 0.5f* Mathf.Deg2Rad))
             {   

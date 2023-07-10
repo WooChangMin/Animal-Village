@@ -192,13 +192,13 @@ public class PlayerControll : MonoBehaviour
         activeInventory = !activeInventory;
         if (activeInventory)
         {
-            animator.SetBool("isOnInven", true);
+            animator.SetBool("IsOnInven", true);
             OnInventoryOpen?.Invoke();
             GameManager.UI.OpenInventoryUI();
         }
         else
         {
-            animator.SetBool("isOnInven", false);
+            animator.SetBool("IsOnInven", false);
             OnInventoryClose?.Invoke();  
             GameManager.UI.CloseInventoryUI();
             GameManager.UI.CloseSelectUI();
@@ -216,7 +216,7 @@ public class PlayerControll : MonoBehaviour
     {
         Component particle = this.GetComponentInChildren<ParticleSystem>();
     }
-
+    
     /*//줍는 범위 표현
     private void OnDrawGizmos()
     {
