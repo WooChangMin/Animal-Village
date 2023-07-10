@@ -8,6 +8,6 @@ public class InteractAdaptor : MonoBehaviour
     public UnityEvent<PlayerInteractor> OnInvoked;
     public void Interact(PlayerInteractor interactor)
     {
-    OnInvoked?.Invoke(interactor);
+        OnInvoked?.Invoke(interactor);
     }
 }
