@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;f
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Tree : MonoBehaviour, IInteractable
@@ -12,13 +12,18 @@ public class Tree : MonoBehaviour, IInteractable
     }
     public void Interact()
     {
-        Fall();
+        StartCoroutine(FallRoutine());
     }
 
-    public void Fall()
+    IEnumerator FallRoutine()
     {
         transform.GetChild(0).gameObject.SetActive(false);
         GameManager.Pool.Get<GameObject>(apple, transform.position, transform.rotation);
+        yield return null;
     }
-
+    /*public void Fall()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+        GameManager.Pool.Get<GameObject>(apple, transform.position, transform.rotation);
+    }*/
 }

@@ -3823,6 +3823,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 159298, guid: 7b9b20a5864a5445eabf87616f76546a, type: 3}
+      propertyPath: m_TagString
+      value: Tree
+      objectReference: {fileID: 0}
     - target: {fileID: 176632, guid: 7b9b20a5864a5445eabf87616f76546a, type: 3}
       propertyPath: m_Layer
       value: 11
