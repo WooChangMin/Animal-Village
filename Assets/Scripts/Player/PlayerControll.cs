@@ -186,7 +186,7 @@ public class PlayerControll : MonoBehaviour
         ItemPickUp();
     }
 
-    //인벤토리 함수로 activeInventory의 bool값을 바꾸면서 유아이매니저에서 구현
+    //인벤토리 함수로 activeInventory의 bool값을 바꾸면서 UI매니저에서 구현
     private void Inventory()
     {
         activeInventory = !activeInventory;
