@@ -661,9 +661,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 671486095}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cd3bcd5127f69d45aa8312989135170, type: 3}
+  m_Script: {fileID: 11500000, guid: c989659c9883cd544a18aeb94547a7ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scripts: {fileID: 11400000, guid: fecf180418f4d1a438c2fa7a92829ee5, type: 2}
 --- !u!143 &671486103
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1322,7 +1323,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 761880974902703040, guid: fd75e8578bf13ef4b86f35c70204fd27, type: 3}
       propertyPath: m_Name
-      value: Eagle
+      value: Eagle_NPC
       objectReference: {fileID: 0}
     - target: {fileID: 761880974902703040, guid: fd75e8578bf13ef4b86f35c70204fd27, type: 3}
       propertyPath: m_Layer

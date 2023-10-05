@@ -8,7 +8,6 @@ using UnityEngine;
 public class NPC : MonoBehaviour, IInteractable
 {
     public DialogueBook scripts;
-    
 
     CharacterController controller;
 
@@ -30,7 +29,7 @@ public class NPC : MonoBehaviour, IInteractable
 
     private void Update()
     {
-        Move();  
+        Move();
     }
 
 
@@ -41,7 +40,6 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void Talk()
     {
-        Debug.Log(1234);
         GameManager.UI.OpenConversationUI();
         /*if (scriptOrder == 0)
         {

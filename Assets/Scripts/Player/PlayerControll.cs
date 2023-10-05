@@ -160,7 +160,7 @@ public class PlayerControll : MonoBehaviour
                 //충돌체가 있을때
                 else
                 {
-                    Item var = colliders[0].gameObject.GetComponent <Item>();   
+                    Item var = colliders[0].gameObject.GetComponent<Item>();   
                     animator.SetTrigger("IsPickUp");
                     Destroy(colliders[0].gameObject);
                     inventory.AddItem(var.item, 1);  //아이템 추가
