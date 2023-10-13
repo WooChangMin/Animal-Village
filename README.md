@@ -1,4 +1,4 @@
-# AnimalCrossing
+# Animal Village
 게임 장르 : 1인용 힐링 시뮬레이션 게임
 
 
