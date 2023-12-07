@@ -12,8 +12,7 @@ public class TitleScene : BaseScene
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-            GameManager.Scene.LoadScene("MapScene");
+        
     }
     protected override IEnumerator LoadingRoutine()
     {
@@ -22,6 +21,16 @@ public class TitleScene : BaseScene
 
         yield return null;
     }
+    /*private void ChangeMenu()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+            GameManager.UI.
+    }
+
+    if(Input.GetKeyDown(KeyCode.Space))
+            GameManager.Scene.LoadScene("MapScene");
+
+*/
         
     private void OnDestroy()
     {
