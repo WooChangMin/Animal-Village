@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject GameUI;
 
-    private EventSystem eventSystem;
+    public EventSystem eventSystem;
 
     private Canvas UICanvas;
     
@@ -100,6 +100,10 @@ public class UIManager : MonoBehaviour
         SelectUI.transform.SetParent(UICanvas.transform);
     }
 
+    public void SetFocusUI(GameObject focusUI)
+    {
+        eventSystem.SetSelectedGameObject(focusUI);
+    }
     public void LoadShopUI()
     {
         CoinUI = GameManager.Resource.Instantiate<Canvas>("UI/CoinUI");

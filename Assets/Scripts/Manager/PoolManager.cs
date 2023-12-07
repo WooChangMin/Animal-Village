@@ -17,7 +17,7 @@ public class PoolManager : MonoBehaviour
         poolContainer = new Dictionary<string, Transform>();
         poolRoot = new GameObject("PoolRoot").transform;
         //canvasRoot = GameManager.Resource.Instantiate<Canvas>("UI/Canvas");
-        poolRoot.AddComponent<PoolManagement>();
+        ///poolRoot.AddComponent<PoolManagement>();
     }
     public T Get<T>(T original, Vector3 position, Quaternion rotation, Transform parent) where T : Object
     {
